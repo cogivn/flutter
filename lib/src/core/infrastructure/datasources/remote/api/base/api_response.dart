@@ -4,6 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'api_error.dart';
 
 part 'api_response.freezed.dart';
+
 part 'api_response.g.dart';
 
 abstract class GenericObject<T> {
@@ -35,18 +36,20 @@ class ResponseWrapper<T> extends GenericObject<T> {
 class SingleApiResponse<T> with _$SingleApiResponse<T> {
   const factory SingleApiResponse(T data) = _SingleApiResponse;
 
-  factory SingleApiResponse.fromJson(
-          Map<String, dynamic> json, T Function(Object?) fromJsonT) =>
-      _$SingleApiResponseFromJson(json, fromJsonT);
+  factory SingleApiResponse.fromJson({
+    required Map<String, dynamic> json,
+    required T Function(Object?) fromJsonT,
+  }) => _$SingleApiResponseFromJson(json, fromJsonT);
 }
 
 @Freezed(genericArgumentFactories: true)
 class ListApiResponse<T> with _$ListApiResponse<T> {
   const factory ListApiResponse(List<T> data) = _ListApiResponse;
 
-  factory ListApiResponse.fromJson(
-          Map<String, dynamic> json, T Function(Object?) fromJsonT) =>
-      _$ListApiResponseFromJson(json, fromJsonT);
+  factory ListApiResponse.fromJson({
+    required Map<String, dynamic> json,
+    required T Function(Object?) fromJsonT,
+  }) => _$ListApiResponseFromJson(json, fromJsonT);
 }
 
 @Freezed(genericArgumentFactories: true)
@@ -57,9 +60,10 @@ class PagingApiResponse<T> with _$PagingApiResponse<T> {
     required int total,
   }) = _PagingApiResponse;
 
-  factory PagingApiResponse.fromJson(
-          Map<String, dynamic> json, T Function(Object?) fromJsonT) =>
-      _$PagingApiResponseFromJson(json, fromJsonT);
+  factory PagingApiResponse.fromJson({
+    required Map<String, dynamic> json,
+    required T Function(Object?) fromJsonT,
+  }) => _$PagingApiResponseFromJson(json, fromJsonT);
 }
 
 extension FoldedSingleApiResponse<T> on Either<ApiError, SingleApiResponse<T>> {

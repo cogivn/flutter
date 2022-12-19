@@ -37,7 +37,7 @@ class AuthRepository implements IAuthRepository {
       path: AuthPath.login(request),
       method: ApiMethod.get,
       fromJsonT: (json) => SingleApiResponse<LoginResponse>.fromJson(
-          json, LoginResponse.fromJson),
+          json: json, fromJsonT: LoginResponse.fromJson),
     );
     return response.fold((l) => left(l), (r) => right(r.data.user));
   }
@@ -46,8 +46,8 @@ class AuthRepository implements IAuthRepository {
     final response = await _client.request(
       path: AuthPath.user,
       method: ApiMethod.get,
-      fromJsonT: (json) =>
-          ListApiResponse<UserModel>.fromJson(json, UserModel.fromJson),
+      fromJsonT: (json) => ListApiResponse<UserModel>.fromJson(
+          json: json, fromJsonT: UserModel.fromJson),
     );
     return response.fold((l) => left(l), (r) => right(r.data));
   }
@@ -56,5 +56,6 @@ class AuthRepository implements IAuthRepository {
   Future logout() async {
     await Future.delayed(1.seconds);
     await setUser(null);
+    await setAccessToken(null);
   }
 }

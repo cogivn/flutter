@@ -1,12 +1,16 @@
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
-import 'app_environment.dart';
+import 'environment.dart';
 import 'getit_utils.config.dart';
 
 final getIt = GetIt.instance;
 
-@InjectableInit()
+@injectableInit
 void configureDependencies() => getIt.init(
-      environment: AppEnvironment.flavor,
+      environment: EnvironmentBuilding.flavor,
     );
+
+class GetItUtils {
+  static setup() async => configureDependencies();
+}

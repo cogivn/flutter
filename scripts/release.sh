@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 printf "Select flavor to build\n"
-select flavor in "DEV" "PRG" "UAT" "PRD"; do
+select flavor in "ALPHA" "DEV" "PRG" "UAT" "PRD"; do
   echo "Selected flavor: #$flavor"
 
   export_method=enterprise

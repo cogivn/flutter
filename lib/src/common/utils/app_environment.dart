@@ -1,4 +1,5 @@
 import 'package:flutter_config_plus/flutter_config_plus.dart';
+import 'package:injectable/injectable.dart';
 
 typedef FlutterConfig = FlutterConfigPlus;
 
@@ -12,4 +13,13 @@ class AppEnvironment {
   static final bundleId = FlutterConfig.get('BUNDLE_ID');
   static final apiUrl = FlutterConfig.get('API_URL');
   static final appName = FlutterConfig.get('APP_NAME');
+
+  static const alpha = 'ALPHA';
+  static const dev = 'DEV';
+  static const prg = 'PRG';
+  static const uat = 'UAT';
+  static const prd = 'PRD';
+
+  static const environments = [dev, prg, uat, prd];
 }
+const alpha = Environment(AppEnvironment.alpha);

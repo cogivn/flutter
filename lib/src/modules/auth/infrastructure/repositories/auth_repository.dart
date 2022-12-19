@@ -1,29 +1,29 @@
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../common/extensions/int_duration.dart';
+import '../../../../common/utils/environment.dart';
 import '../../../../core/infrastructure/datasources/local/storage.dart';
 import '../../../../core/infrastructure/datasources/remote/api/api_client.dart';
 import '../../../../core/infrastructure/datasources/remote/api/base/api_error.dart';
-import '../../../../core/infrastructure/datasources/remote/api/base/api_path.dart';
-import '../../../../core/infrastructure/datasources/remote/api/base/api_response.dart';
-import '../../../../core/infrastructure/datasources/remote/api/services/auth/auth_path.dart';
 import '../../../../core/infrastructure/datasources/remote/api/services/auth/models/login_request.dart';
-import '../../../../core/infrastructure/datasources/remote/api/services/auth/models/login_response.dart';
+import '../../../../core/infrastructure/datasources/remote/api/services/auth/models/register_request.dart';
+import '../../domain/entities/user.dart';
 import '../../domain/interfaces/auth_repository_interface.dart';
-import '../models/user_model.dart';
 
-@LazySingleton(as: IAuthRepository)
+@LazySingleton(as: IAuthRepository, env: EnvironmentBuilding.environments)
 class AuthRepository implements IAuthRepository {
+  // ignore: unused_field
   final ApiClient _client;
 
   AuthRepository(this._client);
 
   @override
-  UserModel? getUser() => Storage.user;
+  User? getUser() => Storage.user;
 
   @override
-  Future setUser(UserModel? val) async => Storage.setUser(val);
+  Future setUser(User? val) async => Storage.setUser(val);
 
   @override
   Future<String?> getAccessToken() => Storage.accessToken;
@@ -32,24 +32,25 @@ class AuthRepository implements IAuthRepository {
   Future setAccessToken(String? val) => Storage.setAccessToken(val);
 
   @override
-  Future<Either<ApiError, UserModel>> login(LoginRequest request) async {
-    final response = await _client.request(
-      path: AuthPath.login(request),
-      method: ApiMethod.get,
-      fromJsonT: (json) => SingleApiResponse<LoginResponse>.fromJson(
-          json: json, fromJsonT: LoginResponse.fromJson),
-    );
-    return response.fold((l) => left(l), (r) => right(r.data.user));
+  Future<Either<ApiError, User>> login(
+    LoginRequest request, {
+    CancelToken? token,
+  }) async {
+    // TODO: implement me
+    throw UnimplementedError();
   }
 
-  Future<Either<ApiError, List<UserModel>>> getAllUsers() async {
-    final response = await _client.request(
-      path: AuthPath.user,
-      method: ApiMethod.get,
-      fromJsonT: (json) => ListApiResponse<UserModel>.fromJson(
-          json: json, fromJsonT: UserModel.fromJson),
-    );
-    return response.fold((l) => left(l), (r) => right(r.data));
+  @override
+  Future<Either<ApiError, User>> me({CancelToken? token}) {
+    // TODO: implement me
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<ApiError, User>> register(RegisterRequest request,
+      {CancelToken? token}) {
+    // TODO: implement register
+    throw UnimplementedError();
   }
 
   @override

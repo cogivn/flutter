@@ -20,10 +20,10 @@ import '../models/user_model.dart';
 
 @alpha
 @LazySingleton(as: IAuthRepository)
-class AuthRepository implements IAuthRepository {
+class AuthRepositoryMockupImpl implements IAuthRepository {
   final ApiClient _client;
 
-  AuthRepository(this._client);
+  AuthRepositoryMockupImpl(this._client);
 
   @override
   User? getUser() => Storage.user;

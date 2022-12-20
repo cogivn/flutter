@@ -13,11 +13,11 @@ import '../../domain/entities/user.dart';
 import '../../domain/interfaces/auth_repository_interface.dart';
 
 @LazySingleton(as: IAuthRepository, env: EnvironmentBuilding.environments)
-class AuthRepository implements IAuthRepository {
+class AuthRepositoryImpl implements IAuthRepository {
   // ignore: unused_field
   final ApiClient _client;
 
-  AuthRepository(this._client);
+  AuthRepositoryImpl(this._client);
 
   @override
   User? getUser() => Storage.user;

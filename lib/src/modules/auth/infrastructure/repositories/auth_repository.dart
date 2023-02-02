@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../common/extensions/int_duration.dart';
-import '../../../../common/utils/environment.dart';
+import '../../../../common/utils/app_environment.dart';
 import '../../../../core/infrastructure/datasources/local/storage.dart';
 import '../../../../core/infrastructure/datasources/remote/api/api_client.dart';
 import '../../../../core/infrastructure/datasources/remote/api/base/api_error.dart';
@@ -12,7 +12,7 @@ import '../../../../core/infrastructure/datasources/remote/api/services/auth/mod
 import '../../domain/entities/user.dart';
 import '../../domain/interfaces/auth_repository_interface.dart';
 
-@LazySingleton(as: IAuthRepository, env: EnvironmentBuilding.environments)
+@LazySingleton(as: IAuthRepository, env: AppEnvironment.environments)
 class AuthRepositoryImpl implements IAuthRepository {
   // ignore: unused_field
   final ApiClient _client;

@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../common/extensions/int_duration.dart';
-import '../../../../common/utils/environment.dart';
+import '../../../../common/utils/app_environment.dart';
 import '../../../../core/infrastructure/datasources/local/storage.dart';
 import '../../../../core/infrastructure/datasources/remote/api/api_client.dart';
 import '../../../../core/infrastructure/datasources/remote/api/base/api_error.dart';

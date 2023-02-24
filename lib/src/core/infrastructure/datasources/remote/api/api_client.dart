@@ -29,7 +29,7 @@ abstract class ApiModule {
       )..interceptors.addAll([
           LangInterceptor(repo),
           AuthInterceptor(),
-          if (kDebugMode) ApiLogInterceptor(),
+          if (kDebugMode) PrettyDioLogger(),
           ErrorInterceptor(),
         ]);
 }

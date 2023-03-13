@@ -1,39 +1,23 @@
 import 'package:flutter/material.dart';
 
 import '../../../generated/colors.gen.dart';
-import '../../../generated/fonts.gen.dart';
+import '../theme/text_theme_interfaces.dart';
+import '../theme/text_theme_provider.dart';
 
 class AppTheme {
-  static TextTheme get textTheme => const TextTheme();
+  final TextThemeFactory factory;
 
-  static ThemeData themeData = ThemeData(
-    primarySwatch: ColorName.materialPrimary,
-    textTheme: textTheme,
-  );
-}
+  AppTheme._(this.factory);
 
-extension TextThemeX on TextTheme {
-  TextStyle get regular => const TextStyle(
-        color: ColorName.black,
-        fontSize: 16,
-        fontFamily: FontFamily.roboto,
-        fontWeight: FontWeight.w400,
-        letterSpacing: 0,
-      );
+  factory AppTheme.create(Locale locale) {
+    final provider = TextThemeFactoryProvider.of(locale);
+    return AppTheme._(provider);
+  }
 
-  TextStyle get medium => const TextStyle(
-        color: ColorName.black,
-        fontSize: 16,
-        fontFamily: FontFamily.roboto,
-        fontWeight: FontWeight.w500,
-        letterSpacing: 0,
-      );
-
-  TextStyle get bold => const TextStyle(
-        color: ColorName.black,
-        fontSize: 16,
-        fontFamily: FontFamily.roboto,
-        fontWeight: FontWeight.w700,
-        letterSpacing: 0,
-      );
+  ThemeData build() {
+    return ThemeData(
+      primarySwatch: ColorName.materialPrimary,
+      textTheme: factory.create(),
+    );
+  }
 }

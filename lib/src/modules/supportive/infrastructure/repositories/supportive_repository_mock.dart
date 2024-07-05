@@ -12,7 +12,7 @@ import '../../domain/repositories/supportive_repository.dart';
 @LazySingleton(as: SupportiveRepository)
 class SupportiveRepositoryMock implements SupportiveRepository {
   @override
-  Future<Result<String, ApiError>> getSupportive(String slug,
+  Future<ResultDart<String, ApiError>> getSupportive(String slug,
       {CancelToken? cancelToken}) async {
     await Future.delayed(1.seconds);
     return List.generate(100, (_) => slug).joinToString().toSuccess();

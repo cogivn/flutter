@@ -31,7 +31,7 @@ class ResponseWrapper<T> extends GenericObject<T> {
 }
 
 @freezed
-class ApiResponse with _$ApiResponse {
+abstract class ApiResponse with _$ApiResponse {
   const factory ApiResponse(ApiError? error, String message) = _ApiResponse;
 
   factory ApiResponse.fromJson(Map<String, dynamic> json) =>
@@ -39,7 +39,7 @@ class ApiResponse with _$ApiResponse {
 }
 
 @Freezed(genericArgumentFactories: true)
-class SingleApiResponse<T> with _$SingleApiResponse<T> {
+abstract class SingleApiResponse<T> with _$SingleApiResponse<T> {
   const factory SingleApiResponse(T data) = _SingleApiResponse;
 
   factory SingleApiResponse.fromJson(
@@ -48,7 +48,7 @@ class SingleApiResponse<T> with _$SingleApiResponse<T> {
 }
 
 @Freezed(genericArgumentFactories: true)
-class ListApiResponse<T> with _$ListApiResponse<T> {
+abstract class ListApiResponse<T> with _$ListApiResponse<T> {
   const factory ListApiResponse(List<T> data) = _ListApiResponse;
 
   factory ListApiResponse.fromJson(
@@ -57,7 +57,7 @@ class ListApiResponse<T> with _$ListApiResponse<T> {
 }
 
 @Freezed(genericArgumentFactories: true)
-class PagingApiResponse<T> with _$PagingApiResponse<T> {
+abstract class PagingApiResponse<T> with _$PagingApiResponse<T> {
   const factory PagingApiResponse({
     required List<T> data,
     required int page,
@@ -70,16 +70,16 @@ class PagingApiResponse<T> with _$PagingApiResponse<T> {
 }
 
 extension FoldedSingleApiResponse<T extends Object>
-    on Result<SingleApiResponse<T>, ApiError> {
-  Result<T, ApiError> get folded => fold(
+    on ResultDart<SingleApiResponse<T>, ApiError> {
+  ResultDart<T, ApiError> get folded => fold(
         (success) => Success(success.data),
         (failure) => Failure(failure),
       );
 }
 
 extension FoldedListApiResponse<T extends Object>
-    on Result<ListApiResponse<T>, ApiError> {
-  Result<List<T>, ApiError> get folded => fold(
+    on ResultDart<ListApiResponse<T>, ApiError> {
+  ResultDart<List<T>, ApiError> get folded => fold(
         (success) => Success(success.data),
         (failure) => Failure(failure),
       );

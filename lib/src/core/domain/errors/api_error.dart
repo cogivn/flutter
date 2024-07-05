@@ -10,15 +10,15 @@ part 'api_error.freezed.dart';
 part 'api_error.g.dart';
 
 @freezed
-class ApiError with _$ApiError implements Exception {
-  factory ApiError(int? code, String message) = _ApiError;
-  factory ApiError.server({int? code, required String message}) = _Server;
-  factory ApiError.network({int? code, required String message}) = _Network;
-  factory ApiError.internal(String message) = _Internal;
-  factory ApiError.cancelled() = _Cancelled;
-  factory ApiError.unexpected() = _Unexpected;
-  factory ApiError.unauthorized() = _Unauthorized;
-  factory ApiError.badRequest() = _BadRequest;
+sealed class ApiError with _$ApiError {
+  factory ApiError(int? code, String message) = ApiCommonError;
+  factory ApiError.server({int? code, required String message}) = ApiServerError;
+  factory ApiError.network({int? code, required String message}) = ApiNetworkError;
+  factory ApiError.internal(String message) = ApiInternalError;
+  factory ApiError.cancelled() = ApiCancelledError;
+  factory ApiError.unexpected() = ApiUnexpectedError;
+  factory ApiError.unauthorized() = ApiUnauthorizedError;
+  factory ApiError.badRequest() = ApiBadRequestError;
 
   factory ApiError.fromJson(Map<String, dynamic> json) =>
       _$ApiErrorFromJson(json);

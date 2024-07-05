@@ -13,7 +13,7 @@ import '../supportive/presentation/pages/supportive_page.dart';
 part 'app_router.gr.dart';
 
 @singleton
-@AutoRouterConfig(replaceInRouteName: 'Page,Route')
+@AutoRouterConfig()
 class AppRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => [

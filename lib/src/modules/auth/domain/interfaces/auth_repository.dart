@@ -10,11 +10,11 @@ abstract class AuthRepository {
   Future setUser(User? val);
   Future<String?> getAccessToken();
   Future setAccessToken(String? val);
-  Future<Result<User, ApiError>> login(
+  Future<ResultDart<User, ApiError>> login(
     LoginRequest request, {
     CancelToken? token,
   });
   Future logout({CancelToken? token});
-  Future<Result<List<User>, ApiError>> users({CancelToken? token});
-  Future<Result<User, ApiError>> user(String id, {CancelToken? token});
+  Future<ResultDart<List<User>, ApiError>> users({CancelToken? token});
+  Future<ResultDart<User, ApiError>> user(String id, {CancelToken? token});
 }

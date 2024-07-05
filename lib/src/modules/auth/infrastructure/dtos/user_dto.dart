@@ -6,7 +6,7 @@ part 'user_dto.freezed.dart';
 part 'user_dto.g.dart';
 
 @freezed
-class UserDTO with _$UserDTO implements User {
+abstract class UserDTO with _$UserDTO implements User {
   const UserDTO._();
 
   const factory UserDTO({

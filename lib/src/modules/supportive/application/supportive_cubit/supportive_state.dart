@@ -1,7 +1,7 @@
 part of 'supportive_cubit.dart';
 
 @freezed
-class SupportiveState with _$SupportiveState {
+abstract class SupportiveState with _$SupportiveState {
   const factory SupportiveState.error(ApiError error) = _Error;
   const factory SupportiveState.loading() = _Loading;
   const factory SupportiveState.loaded({

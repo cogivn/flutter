@@ -6,12 +6,12 @@ part 'login_response.freezed.dart';
 part 'login_response.g.dart';
 
 @freezed
-class LoginResponse with _$LoginResponse {
+abstract class LoginResponse with _$LoginResponse {
   const factory LoginResponse({
     @Default(UserDTO()) UserDTO user,
     @Default('') String accessToken,
   }) = _LoginResponse;
 
   const LoginResponse._();
-  factory LoginResponse.fromJson(json) => _$LoginResponseFromJson(json);
+  factory LoginResponse.fromJson(Map<String, dynamic> json) => _$LoginResponseFromJson(json);
 }

@@ -70,7 +70,7 @@ extension FutureOrX<T extends Object> on FutureOr<T> {
     }
   }
 
-  FutureOr<Result<R, ApiError>> tryGet<R extends Object>(
+  FutureOr<ResultDart<R, ApiError>> tryGet<R extends Object>(
       FutureOr<R> Function(T) response) async {
     try {
       return (await response.call(await getOrThrow())).toSuccess();
@@ -82,7 +82,7 @@ extension FutureOrX<T extends Object> on FutureOr<T> {
   }
 }
 
-extension FutureResultX<T extends Object> on Future<Result<T, ApiError>> {
+extension FutureResultX<T extends Object> on Future<ResultDart<T, ApiError>> {
   FutureOr<W> fold<W>(
     W Function(T success) onSuccess,
     W Function(ApiError failure) onFailure,

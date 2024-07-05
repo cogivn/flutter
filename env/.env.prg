@@ -1,0 +1,6 @@
+FLAVOR=PRG
+PACKAGE_NAME=com.example.flutterBase
+BUNDLE_ID=com.example.flutterBase
+APPLE_TEAM_ID=VU4P7YMN4B
+APP_NAME=[PRG]FT
+API_URL="https://example.tld/api/v1"

@@ -8,6 +8,7 @@ import '../../../../../generated/colors.gen.dart';
 import '../../../../common/extensions/build_context_dialog.dart';
 import '../../../../common/extensions/build_context_x.dart';
 import '../../../../core/application/auth_bloc/auth_bloc.dart';
+import '../../../../core/domain/errors/auth_error.dart';
 import '../../../../core/infrastructure/datasources/remote/api/services/auth/models/login_request.dart';
 
 part '../widgets/auth_body.dart';

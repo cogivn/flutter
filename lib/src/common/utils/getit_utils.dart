@@ -11,7 +11,7 @@ void configureDependencies({required String flavor}) =>
     getIt.init(environment: flavor);
 
 class GetItUtils {
-  static setup({String? flavor}) async => configureDependencies(
+  static Future<void> setup({String? flavor}) async => configureDependencies(
         flavor: flavor ?? AppEnvironment.flavor,
       );
 }

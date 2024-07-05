@@ -57,7 +57,12 @@ void main() {
       ),
     );
   }, (error, stack) {
-    getIt<Talker>().handle(error, stack);
+    if (getIt.isRegistered<Talker>()) {
+      getIt<Talker>().handle(error, stack);
+    } else {
+      debugPrintSynchronously('Unhandled Exception with error: $error '
+          '\n Stacktrace: $stack');
+    }
   });
 }
 

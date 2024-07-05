@@ -36,7 +36,7 @@ class AuthRepositoryImpl implements AuthRepository {
   Future setAccessToken(String? val) => Storage.setAccessToken(val);
 
   @override
-  Future<Result<UserDTO, ApiError>> login(
+  Future<ResultDart<UserDTO, ApiError>> login(
     LoginRequest request, {
     CancelToken? token,
   }) async {
@@ -58,12 +58,12 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Result<List<UserDTO>, ApiError>> users({CancelToken? token}) async {
+  Future<ResultDart<List<UserDTO>, ApiError>> users({CancelToken? token}) async {
     return await _client.users(token).tryGet((response) => response.data);
   }
 
   @override
-  Future<Result<UserDTO, ApiError>> user(String id,
+  Future<ResultDart<UserDTO, ApiError>> user(String id,
       {CancelToken? token}) async {
     return await _client.user(id, token).tryGet((response) => response.data);
   }

@@ -35,7 +35,7 @@ class AuthRepositoryMock implements AuthRepository {
   Future setAccessToken(String? val) => Storage.setAccessToken(val);
 
   @override
-  Future<Result<UserDTO, ApiError>> login(
+  Future<ResultDart<UserDTO, ApiError>> login(
     LoginRequest request, {
     CancelToken? token,
   }) async {
@@ -54,12 +54,12 @@ class AuthRepositoryMock implements AuthRepository {
   }
 
   @override
-  Future<Result<List<UserDTO>, ApiError>> users({CancelToken? token}) async {
+  Future<ResultDart<List<UserDTO>, ApiError>> users({CancelToken? token}) async {
     return AuthDataSourceMock.users.toSuccess();
   }
 
   @override
-  Future<Result<UserDTO, ApiError>> user(String id,
+  Future<ResultDart<UserDTO, ApiError>> user(String id,
       {CancelToken? token}) async {
     final user =
         AuthDataSourceMock.users.firstOrNullWhere((user) => user.id == id);

@@ -11,7 +11,7 @@ import '../../domain/repositories/supportive_repository.dart';
 @LazySingleton(as: SupportiveRepository, env: AppEnvironment.environments)
 class SupportiveRepositoryImpl implements SupportiveRepository {
   @override
-  Future<Result<String, ApiError>> getSupportive(String slug,
+  Future<ResultDart<String, ApiError>> getSupportive(String slug,
       {CancelToken? cancelToken}) async {
     await Future.delayed(1.seconds);
     return List.generate(100, (_) => slug).joinToString().toSuccess();

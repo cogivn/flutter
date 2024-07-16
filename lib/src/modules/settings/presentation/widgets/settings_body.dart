@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../../../common/extensions/build_context_x.dart';
@@ -23,10 +23,10 @@ class SettingsBody extends StatelessWidget {
             children: [
               Text(context.s.language),
               const Spacer(),
-              BlocBuilder<LangCubit, Locale>(
-                builder: (context, state) {
+              Consumer(
+                builder: (context, ref, _) {
                   return DropdownButton<Locale>(
-                      value: state,
+                      value: ref.watch(langProvider),
                       items: LocaleX.supportedLocales
                           .map((locale) => DropdownMenuItem(
                                 value: locale,
@@ -35,8 +35,7 @@ class SettingsBody extends StatelessWidget {
                           .toList(),
                       onChanged: (value) {
                         if (value == null) return;
-                        final langCubit = context.read<LangCubit>();
-                        langCubit.setLocale(value);
+                        ref.read(langProvider.bloc).setLocale(value);
                       });
                 },
               ),
@@ -69,10 +68,12 @@ Aute adipisicing aliqua velit ullamco cupidatat dolore sunt sint. Officia dolor 
 Amet cupidatat dolore fugiat esse. Et occaecat ullamco id amet Lorem in dolore fugiat. Consectetur amet id mollit nostrud do excepteur sint aliqua laborum velit. Consequat sunt esse Lorem Lorem proident commodo. Enim aute elit consectetur ex sint Lorem. Consectetur eiusmod veniam deserunt consectetur duis fugiat adipisicing aliqua aliqua officia dolor.''',
           )),
         ),
-        ListTile(
-          title: Text(context.s.logout),
-          onTap: () => context.read<AuthCubit>().logout(),
-        ),
+        Consumer(builder: (context, ref, _) {
+          return ListTile(
+            title: Text(context.s.logout),
+            onTap: () => ref.read(authProvider.bloc).logout(),
+          );
+        }),
         ListTile(
           title: FutureBuilder<PackageInfo>(
               future: PackageInfo.fromPlatform(),

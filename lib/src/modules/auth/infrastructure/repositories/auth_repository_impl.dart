@@ -13,7 +13,7 @@ import '../../domain/entities/user.dart';
 import '../../domain/interfaces/auth_repository.dart';
 import '../dtos/user_dto.dart';
 
-@LazySingleton(as: AuthRepository, env: AppEnvironment.environments, order: -1)
+@LazySingleton(as: AuthRepository, env: AppEnvironment.environments)
 class AuthRepositoryImpl implements AuthRepository {
   final AuthClient _client;
 

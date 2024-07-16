@@ -1,10 +1,17 @@
-import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
+import 'package:riverbloc/riverbloc.dart';
+
+import '../../../../../common/utils/getit_utils.dart';
 
 part 'counter_bloc.freezed.dart';
 part 'counter_event.dart';
 part 'counter_state.dart';
 
+final counterProvier =
+    BlocProvider<CounterBloc, CounterState>((_) => getIt<CounterBloc>());
+
+@injectable
 class CounterBloc extends Bloc<CounterEvent, CounterState> {
   CounterBloc() : super(const _Value(0)) {
     on<CounterEvent>((event, emit) async {

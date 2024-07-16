@@ -1,7 +1,8 @@
-import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:riverbloc/riverbloc.dart';
 
+import '../../../../common/utils/getit_utils.dart';
 import '../../../../common/utils/validator.dart';
 import '../../../../modules/auth/domain/entities/user.dart';
 import '../../../../modules/auth/domain/interfaces/auth_repository.dart';
@@ -10,6 +11,9 @@ import '../../../infrastructure/datasources/remote/api/services/auth/models/logi
 
 part 'auth_cubit.freezed.dart';
 part 'auth_state.dart';
+
+final authProvider =
+    BlocProvider<AuthCubit, AuthState>((_) => getIt<AuthCubit>());
 
 @singleton
 class AuthCubit extends Cubit<AuthState> {

@@ -14,14 +14,19 @@ dependencies:
   intl: ^0.19.0
   auto_route: ^8.2.0
   bloc: ^8.1.4
-  flutter_bloc: ^8.1.6
+  riverbloc: ^2.3.0
+  flutter_riverpod: ^2.5.1
   flutter_config: ^2.0.2
   flutter_svg: ^2.0.10+1
   freezed_annotation: ^2.4.2
   json_annotation: ^4.9.0
   dio: ^5.5.0+1
   get_it: ^7.7.0
-  injectable: ^2.4.2
+  injectable:
+    git:
+      url: https://github.com/cogivn/injectable.git
+      path: injectable
+      ref: develop
   shared_preferences: ^2.2.3
   flutter_secure_storage: ^9.2.2
   loggy: ^2.0.3
@@ -56,7 +61,11 @@ dev_dependencies:
   flutter_gen_runner: ^5.6.0
   intl_utils: ^2.8.7
   enum_generator: ^1.1.2
-  injectable_generator: ^2.6.1
+  injectable_generator:
+    git:
+      url: https://github.com/cogivn/injectable.git
+      path: injectable_generator
+      ref: develop
   flutter_launcher_icons: ^0.13.1
   retrofit_generator: ^8.1.1
 
@@ -102,7 +111,7 @@ flutter_gen:
   colors:
     enabled: true
     inputs:
-      - assets/color/colors.xml
+      - assets/colors/colors.xml
 
 flutter_intl:
   enabled: true

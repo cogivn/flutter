@@ -3,19 +3,16 @@ import 'dart:isolate';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:talker_bloc_logger/talker_bloc_logger.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:talker_flutter/talker_flutter.dart';
+import 'package:talker_riverpod_logger/talker_riverpod_logger.dart';
 
 import 'src/common/extensions/locale_x.dart';
 import 'src/common/utils/app_environment.dart';
 import 'src/common/utils/getit_utils.dart';
 import 'src/common/utils/logger.dart';
-import 'src/core/application/auth_bloc/auth_bloc.dart';
-import 'src/core/application/lang_cubit/lang_cubit.dart';
 import 'src/core/domain/interfaces/lang_repository.dart';
 import 'src/core/infrastructure/datasources/local/storage.dart';
-import 'src/modules/app/app_router.dart';
 import 'src/modules/app/app_widget.dart';
 
 void main() {
@@ -33,27 +30,11 @@ void main() {
         'deviceLocale - ${langRepository.getDeviceLocale().fullLanguageCode}');
     logger.d('currentLocale - ${langRepository.getLocale().fullLanguageCode}');
 
-    Bloc.observer = TalkerBlocObserver(talker: talker);
 
     runApp(
-      MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (_) => getIt<AuthBloc>()),
-          BlocProvider(create: (_) => getIt<LangCubit>()),
-        ],
-        child: MultiBlocListener(
-          listeners: [
-            BlocListener<AuthBloc, AuthState>(listener: (context, state) {
-              final router = getIt<AppRouter>();
-              state.whenOrNull(
-                  authenticated: (user) =>
-                      router.replaceAll([const HomeRoute()]),
-                  unauthenticated: () =>
-                      router.replaceAll([const AuthRoute()]));
-            }),
-          ],
-          child: const AppWidget(),
-        ),
+      ProviderScope(
+        observers: [TalkerRiverpodObserver(talker: talker)],
+        child: AppWidget(),
       ),
     );
   }, (error, stack) {

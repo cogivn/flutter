@@ -17,7 +17,7 @@ sealed class ApiError with _$ApiError {
   factory ApiError.internal(String message) = ApiInternalError;
   factory ApiError.cancelled() = ApiCancelledError;
   factory ApiError.unexpected() = ApiUnexpectedError;
-  factory ApiError.unauthorized() = ApiUnauthorizedError;
+  factory ApiError.unauthorized(String message) = ApiUnauthorizedError;
   factory ApiError.badRequest() = ApiBadRequestError;
 
   factory ApiError.fromJson(Map<String, dynamic> json) =>
@@ -39,7 +39,7 @@ sealed class ApiError with _$ApiError {
       server: (code, message) => message,
       internal: (message) => message,
       network: (_, message) => message,
-      unauthorized: () => S.current.error_unauthorized,
+      unauthorized: (_) => S.current.error_unauthorized,
       badRequest: () => S.current.error_bad_request,
     );
   }

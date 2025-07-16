@@ -7,7 +7,6 @@ import 'package:uuid/uuid.dart';
 
 import '../../../../common/extensions/optional_x.dart';
 import '../../../../common/utils/logger.dart';
-import '../../../../modules/auth/infrastructure/dtos/user_dto.dart';
 
 class _Keys {
   static const lang = 'lang';
@@ -15,6 +14,7 @@ class _Keys {
   static const accessToken = 'access_token';
   static const deviceId = 'device_id';
   static const pushToken = 'push_token';
+  static const lastRegisteredPushToken = 'last_registered_push_token';
 }
 
 class Storage {
@@ -23,7 +23,7 @@ class Storage {
 
   static const _storage = FlutterSecureStorage();
 
-  static setup() async {
+  static Future<void> setup() async {
     _prefs = await SharedPreferences.getInstance();
 
     /// A shared preference wrapper providing [Stream] for listening updates
@@ -61,7 +61,13 @@ class Storage {
     throw Exception('Type not supported!');
   }
 
+  static Future<void> _remove(String key, {bool notify = false}) {
+    return notify ? _rxPrefs.remove(key) : _prefs.remove(key);
+  }
+
   static Future<String?> _getSecure(String key) => _storage.read(key: key);
+
+  static Future<void> _removeSecure(String key) => _storage.delete(key: key);
 
   static Future<void> _setSecure(String key, String? val) =>
       _storage.write(key: key, value: val);
@@ -70,30 +76,30 @@ class Storage {
 
   static Future setLang(String? val) => _set(_Keys.lang, val);
 
-  static UserDTO? get user {
+  static Map<String, dynamic> get user {
     final userString = _get<String>(_Keys.user);
     return _parseUser(userString);
   }
 
-  static Stream<UserDTO?> get userStream {
+  static Stream<Map<String, dynamic>?> get userStream {
     return _rxPrefs
         .getStringStream(_Keys.user)
         .map((event) => _parseUser(event));
   }
 
-  static UserDTO? _parseUser(String? userString) {
+  static Map<String, dynamic> _parseUser(String? userString) {
     try {
       if (userString != null) {
-        return UserDTO.fromJson(json.decode(userString));
+        return json.decode(userString);
       }
     } catch (e) {
       logger.e(e);
     }
-    return null;
+    return {};
   }
 
-  static Future<void> setUser(UserDTO? val) =>
-      _set(_Keys.user, json.encode(val?.toJson()));
+  static Future<void> setUser(Map<String, dynamic>? v) =>
+      _set(_Keys.user, v.toString());
 
   static Future<String?> get accessToken => _getSecure(_Keys.accessToken);
 
@@ -114,4 +120,19 @@ class Storage {
   static String? get pushToken => _get(_Keys.pushToken);
 
   static Future setPushToken(String? val) => _set(_Keys.pushToken, val);
+
+  static String? get lastRegisteredPushToken =>
+      _get(_Keys.lastRegisteredPushToken);
+
+  static Future setLastRegisteredPushToken(String? val) {
+    debugPrintSynchronously('Push Token registered successfully.');
+    return _set(_Keys.lastRegisteredPushToken, val);
+  }
+
+  /// Removes all user-related data (user object and access token)
+  static Future<void> clearUserData() async {
+    await _remove(_Keys.user, notify: true);
+    await _removeSecure(_Keys.accessToken);
+    await _remove(_Keys.lastRegisteredPushToken);
+  }
 }

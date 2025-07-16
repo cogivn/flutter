@@ -19,12 +19,13 @@ class AuthRepositoryMock implements AuthRepository {
   AuthRepositoryMock();
 
   @override
-  UserDTO? getUser() => Storage.user;
+  UserDTO? getUser() => UserDTO.fromJson(Storage.user);
 
   @override
   Future setUser(User? val) async {
     if (val is UserDTO?) {
-      return Storage.setUser(val);
+      final json = val?.toJson();
+      return Storage.setUser(json);
     }
   }
 

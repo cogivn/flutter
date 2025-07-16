@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sizing/sizing.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 import '../../../generated/l10n.dart';
@@ -18,11 +18,9 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final router = getIt<AppRouter>();
     final talker = getIt<Talker>();
-    return ScreenUtilInit(
-      designSize: const Size(390, 844),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: (context, child) => Consumer(
+    return SizingBuilder(
+      baseSize: const Size(390, 844),
+      builder: () => Consumer(
         builder: (context, ref, _) {
           final locale = ref.watch(langProvider);
           return AppThemeWrapper(

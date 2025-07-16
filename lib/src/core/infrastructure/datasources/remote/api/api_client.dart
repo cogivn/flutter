@@ -113,7 +113,9 @@ extension DioExceptionX on DioException {
       }
       responseMessage = responseMessage ?? S.current.error_unexpected;
       if (statusCode == 401) {
-        return ApiError.unauthorized();
+        // Use default error message for fallback
+        final message = S.current.error_unexpected;
+        return ApiError.unauthorized(message);
       } else if (statusCode >= 400 && statusCode < 500) {
         return ApiError.server(code: statusCode, message: responseMessage);
       } else {

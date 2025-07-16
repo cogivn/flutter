@@ -1,0 +1,24 @@
+# Register bricks which can be consumed via the Mason CLI.
+# Run "mason get" to install all registered bricks.
+# To learn more, visit https://docs.brickhub.dev.
+bricks:
+  ddd:
+    git:
+      url: https://github.com/cogivn/ddd.git
+      path: bricks/ddd
+  auth:
+    git:
+      url: https://github.com/cogivn/ddd.git
+      path: bricks/auth
+  otp:
+    git:
+      url: https://github.com/cogivn/ddd.git
+      path: bricks/otp
+  reset:
+    git:
+      url: https://github.com/cogivn/ddd.git
+      path: bricks/reset
+  delete_account:
+    git:
+      url: https://github.com/cogivn/ddd.git
+      path: bricks/delete_account

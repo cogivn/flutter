@@ -4,6 +4,7 @@ analyzer:
   exclude:
     - "**/*.g.dart"
     - "**/*.config.dart"
+    - "**/generated/**"
   errors:
     invalid_annotation_target: ignore
   plugins:

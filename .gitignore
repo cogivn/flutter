@@ -137,3 +137,5 @@ ios/.envfile
 
 # Environments
 *.env
+mason-lock.json
+.mason

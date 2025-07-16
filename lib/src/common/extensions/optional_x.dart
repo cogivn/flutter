@@ -1,6 +1,6 @@
 import 'package:dartx/dartx.dart';
 
-T? cast<T>(x) => x is T ? x : null;
+T? cast<T>(dynamic x) => x is T ? x : null;
 
 extension OptionalObject on Object? {
   bool get isNull => this == null;

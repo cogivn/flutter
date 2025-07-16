@@ -2,7 +2,7 @@ import 'package:flutter_config/flutter_config.dart';
 import 'package:injectable/injectable.dart';
 
 class AppEnvironment {
-  static setup() async {
+  static Future<void> setup() async {
     await FlutterConfig.loadEnvVariables();
   }
 

@@ -26,7 +26,7 @@ class _Logger {
   _Logger(this.talker);
 
   // White text
-  d(
+  void d(
     dynamic msg, {
     Object? exception,
     StackTrace? stackTrace,
@@ -34,7 +34,7 @@ class _Logger {
       talker.debug(msg, exception, stackTrace);
 
   // Blue text
-  i(
+  void i(
     dynamic msg, {
     Object? exception,
     StackTrace? stackTrace,
@@ -42,7 +42,7 @@ class _Logger {
       talker.info(msg, exception, stackTrace);
 
   // Yellow text
-  w(
+  void w(
     dynamic msg, {
     Object? exception,
     StackTrace? stackTrace,
@@ -50,7 +50,7 @@ class _Logger {
       talker.warning(msg, exception, stackTrace);
 
   // Red text
-  e(
+  void e(
     dynamic msg, {
     Object? exception,
     StackTrace? stackTrace,

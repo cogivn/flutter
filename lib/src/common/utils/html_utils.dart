@@ -68,35 +68,37 @@ class HtmlUtils {
     required String data,
     HtmlRenderConfig config = const HtmlRenderConfig(),
   }) {
-    return Builder(builder: (context) {
-      final regular = context.textTheme.regular;
-      final defaultStyle = config.globalStyle ??
-          Style.fromTextStyle(regular).copyWith(
-            padding: HtmlPaddings.all(0.0),
-            margin: Margins.all(0),
-          );
+    return Builder(
+      builder: (context) {
+        final regular = context.textTheme.regular;
+        final defaultStyle =
+            config.globalStyle ??
+            Style.fromTextStyle(
+              regular,
+            ).copyWith(padding: HtmlPaddings.all(0.0), margin: Margins.all(0));
 
-      return Html(
-        key: config.key,
-        anchorKey: config.anchorKey,
-        data: data,
-        onAnchorTap: config.onAnchorTap,
-        onLinkTap: config.onLinkTap ?? _defaultLinkHandler(context),
-        onCssParseError: config.onCssParseError,
-        extensions: [
-          ImageHtmlExtension.createImageExtension(config.borderRadius),
-          ...config.extensions,
-        ],
-        shrinkWrap: config.shrinkWrap,
-        style: {
-          'body': defaultStyle,
-          'p': defaultStyle.copyWith(
-            margin: Margins.only(left: 4, right: 4, top: 0, bottom: 10),
-          ),
-          ...config.style,
-        },
-      );
-    });
+        return Html(
+          key: config.key,
+          anchorKey: config.anchorKey,
+          data: data,
+          onAnchorTap: config.onAnchorTap,
+          onLinkTap: config.onLinkTap ?? _defaultLinkHandler(context),
+          onCssParseError: config.onCssParseError,
+          extensions: [
+            ImageHtmlExtension.createImageExtension(config.borderRadius),
+            ...config.extensions,
+          ],
+          shrinkWrap: config.shrinkWrap,
+          style: {
+            'body': defaultStyle,
+            'p': defaultStyle.copyWith(
+              margin: Margins.only(left: 4, right: 4, top: 0, bottom: 10),
+            ),
+            ...config.style,
+          },
+        );
+      },
+    );
   }
 
   /// Creates an HTML widget with default margins
@@ -106,10 +108,7 @@ class HtmlUtils {
     required String data,
     HtmlRenderConfig config = const HtmlRenderConfig(),
   }) {
-    return noMargin(
-      data: data,
-      config: config,
-    );
+    return noMargin(data: data, config: config);
   }
 
   /// Creates a compact HTML widget for dense layouts
@@ -119,31 +118,28 @@ class HtmlUtils {
     required String data,
     HtmlRenderConfig config = const HtmlRenderConfig(),
   }) {
-    return Builder(builder: (context) {
-      final regular = context.textTheme.regular.copyWith(
-        height: 1.2,
-        fontSize: 14,
-      );
+    return Builder(
+      builder: (context) {
+        final regular = context.textTheme.regular.copyWith(
+          height: 1.2,
+          fontSize: 14,
+        );
 
-      final compactStyle = Style.fromTextStyle(regular).copyWith(
-        padding: HtmlPaddings.all(0.0),
-        margin: Margins.all(0),
-      );
+        final compactStyle = Style.fromTextStyle(
+          regular,
+        ).copyWith(padding: HtmlPaddings.all(0.0), margin: Margins.all(0));
 
-      return noMargin(
-        data: data,
-        config: HtmlRenderConfig(
-          key: config.key,
-          style: {
-            'body': compactStyle,
-            'p': compactStyle,
-            ...config.style,
-          },
-          shrinkWrap: true,
-          extensions: config.extensions,
-        ),
-      );
-    });
+        return noMargin(
+          data: data,
+          config: HtmlRenderConfig(
+            key: config.key,
+            style: {'body': compactStyle, 'p': compactStyle, ...config.style},
+            shrinkWrap: true,
+            extensions: config.extensions,
+          ),
+        );
+      },
+    );
   }
 
   /// Default repository for tapping links in HTML content
@@ -154,15 +150,18 @@ class HtmlUtils {
   /// - Phone numbers (tel:)
   /// - Other supported URL schemes
   static OnTap _defaultLinkHandler(BuildContext context) {
-    return (String? url, _, __) {
+    return (String? url, _, _) {
       if (url == null || url.isEmpty) {
         context.showError(context.s.error);
         return;
       }
       // Handle the URL appropriately based on type
-      URLLauncherUtils.openUrl(url, onError: (error) {
-        return context.showError('${context.s.error}: $error');
-      });
+      URLLauncherUtils.openUrl(
+        url,
+        onError: (error) {
+          return context.showError('${context.s.error}: $error');
+        },
+      );
     };
   }
 }

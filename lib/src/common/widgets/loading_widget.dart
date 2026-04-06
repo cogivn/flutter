@@ -16,7 +16,7 @@ class LoadingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        if (child != null) child!,
+        ?child,
         if (isLoading)
           Container(
             alignment: Alignment.center,
@@ -24,7 +24,7 @@ class LoadingWidget extends StatelessWidget {
             height: double.infinity,
             color: color,
             child: const CircularProgressIndicator(),
-          )
+          ),
       ],
     );
   }

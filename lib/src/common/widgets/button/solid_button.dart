@@ -78,13 +78,13 @@ class SolidButton extends StatelessWidget {
 
   /// Callback triggered when the button is tapped
   final GestureTapCallback? onPressed;
-  
+
   /// Duration for the AnimatedSwitcher transition
   final Duration switchDuration;
 
   /// The elevation/shadow depth of the button
   final double elevation;
-  
+
   /// External margin around the button
   final EdgeInsetsGeometry? margin;
 
@@ -97,16 +97,17 @@ class SolidButton extends StatelessWidget {
         onPressed: (isEnabled && !isLoading) ? onPressed : null,
         style: ElevatedButton.styleFrom(
           backgroundColor: backgroundColor,
-          foregroundColor: isEnabled ? foregroundColor : disabledForegroundColor,
+          foregroundColor: isEnabled
+              ? foregroundColor
+              : disabledForegroundColor,
           padding: EdgeInsets.zero,
-          disabledForegroundColor: disabledForegroundColor ??
+          disabledForegroundColor:
+              disabledForegroundColor ??
               ColorName.textSecondary.withValues(alpha: 0.5),
           disabledBackgroundColor: disabledBackgroundColor,
           elevation: elevation, // Use the elevation property
           alignment: Alignment.center,
-          textStyle: context.textTheme.bold.copyWith(
-            fontSize: fontSize.fss,
-          ),
+          textStyle: context.textTheme.bold.copyWith(fontSize: fontSize.fss),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(radius),
           ),
@@ -119,10 +120,10 @@ class SolidButton extends StatelessWidget {
         ),
       ),
     );
-    
+
     // Apply margin if provided, otherwise return the button as is
-    return margin != null 
-        ? Padding(padding: margin!, child: buttonWidget) 
+    return margin != null
+        ? Padding(padding: margin!, child: buttonWidget)
         : buttonWidget;
   }
 }
@@ -134,7 +135,7 @@ class _ButtonContent extends StatelessWidget {
     required this.switchDuration,
     required this.loadingColor,
   });
-  
+
   final String text;
   final bool isLoading;
   final Duration switchDuration;
@@ -147,34 +148,28 @@ class _ButtonContent extends StatelessWidget {
       layoutBuilder: (Widget? currentChild, List<Widget> previousChildren) {
         return Stack(
           alignment: Alignment.center,
-          children: <Widget>[
-            ...previousChildren,
-            if (currentChild != null) currentChild,
-          ],
+          children: <Widget>[...previousChildren, ?currentChild],
         );
       },
       transitionBuilder: (Widget child, Animation<double> animation) {
         return FadeTransition(
           opacity: animation,
-          child: ScaleTransition(
-            scale: animation,
-            child: child,
-          ),
+          child: ScaleTransition(scale: animation, child: child),
         );
       },
-      child: isLoading 
-        ? _LoadingIndicator(key: const ValueKey('loading'), color: loadingColor) 
-        : Text(text, key: const ValueKey('text')),
+      child: isLoading
+          ? _LoadingIndicator(
+              key: const ValueKey('loading'),
+              color: loadingColor,
+            )
+          : Text(text, key: const ValueKey('text')),
     );
   }
 }
 
 class _LoadingIndicator extends StatelessWidget {
-  const _LoadingIndicator({
-    super.key,
-    required this.color,
-  });
-  
+  const _LoadingIndicator({super.key, required this.color});
+
   final Color color;
 
   @override

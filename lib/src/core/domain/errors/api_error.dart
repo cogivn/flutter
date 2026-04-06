@@ -12,8 +12,10 @@ part 'api_error.g.dart';
 @freezed
 sealed class ApiError with _$ApiError {
   factory ApiError(int? code, String message) = ApiCommonError;
-  factory ApiError.server({int? code, required String message}) = ApiServerError;
-  factory ApiError.network({int? code, required String message}) = ApiNetworkError;
+  factory ApiError.server({int? code, required String message}) =
+      ApiServerError;
+  factory ApiError.network({int? code, required String message}) =
+      ApiNetworkError;
   factory ApiError.internal(String message) = ApiInternalError;
   factory ApiError.cancelled() = ApiCancelledError;
   factory ApiError.unexpected() = ApiUnexpectedError;
@@ -26,10 +28,7 @@ sealed class ApiError with _$ApiError {
   ApiError._();
 
   int? get code {
-    return whenOrNull(
-      (code, _) => code,
-      server: (code, _) => code,
-    );
+    return whenOrNull((code, _) => code, server: (code, _) => code);
   }
 
   String get message {
@@ -45,15 +44,14 @@ sealed class ApiError with _$ApiError {
   }
 
   String get title => maybeWhen(
-        (code, message) => S.current.error,
-        network: (code, __) => code == HttpStatus.internalServerError
-            ? S.current.error_internal_server
-            : S.current.error,
-        orElse: () =>
-            S.current.error +
-            (AppEnvironment.flavor != AppEnvironment.prd &&
-                    code.isNotNullOrEmpty
-                ? ': $code'
-                : ''),
-      );
+    (code, message) => S.current.error,
+    network: (code, _) => code == HttpStatus.internalServerError
+        ? S.current.error_internal_server
+        : S.current.error,
+    orElse: () =>
+        S.current.error +
+        (AppEnvironment.flavor != AppEnvironment.prd && code.isNotNullOrEmpty
+            ? ': $code'
+            : ''),
+  );
 }
